@@ -37,7 +37,7 @@ apiClient.interceptors.response.use(
         });
 
         const { access } = response.data;
-        Cookies.set("access_token", access, { expires: 1 });
+        Cookies.set("access_token", access, { expires: 1, secure: true, sameSite: "strict" });
         originalRequest.headers.Authorization = `Bearer ${access}`;
         return apiClient(originalRequest);
       } catch {

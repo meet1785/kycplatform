@@ -77,8 +77,8 @@ def send_sms_otp(phone_number, otp_code):
             from_=settings.TWILIO_PHONE_NUMBER,
             to=phone_number,
         )
-        logger.info(f"SMS OTP sent to {phone_number}, SID: {message.sid}")
+        logger.info("SMS OTP sent successfully, SID: %s", message.sid)
         return True
     except Exception as e:
-        logger.error(f"Failed to send SMS OTP to {phone_number}: {e}")
+        logger.error("Failed to send SMS OTP: %s", type(e).__name__)
         return False

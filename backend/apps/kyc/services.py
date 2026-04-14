@@ -1,4 +1,5 @@
 import logging
+import random
 import requests
 from django.utils import timezone
 from django.conf import settings
@@ -61,8 +62,6 @@ def process_kyc_with_provider(application):
 
 def _call_mock_kyc_api(application):
     """Mock KYC API response for development/testing."""
-    import random
-
     # Simulate processing time and scoring
     score = round(random.uniform(0.6, 0.99), 2)
 

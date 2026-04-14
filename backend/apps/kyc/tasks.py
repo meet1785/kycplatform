@@ -47,7 +47,7 @@ def process_kyc_verification(self, application_id):
         send_kyc_status_notification.delay(str(application.user.id), new_status)
 
         # Send WebSocket notification
-        _notify_kyc_update(str(application.user.id), new_status, str(application.id))
+        notify_kyc_update(str(application.user.id), new_status, str(application.id))
 
         logger.info(f"KYC verification completed for {application_id}: {new_status}")
 
@@ -96,7 +96,7 @@ def cleanup_expired_documents():
     logger.info(f"Cleaned up {count} expired document signed URLs.")
 
 
-def _notify_kyc_update(user_id, status, application_id):
+def notify_kyc_update(user_id, status, application_id):
     """Send WebSocket notification for KYC status update."""
     try:
         from channels.layers import get_channel_layer

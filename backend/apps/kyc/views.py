@@ -60,8 +60,11 @@ class KYCSubmitView(APIView):
 
         try:
             application = submit_kyc_application(application)
-        except ValueError as e:
-            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except ValueError:
+            return Response(
+                {"detail": "Application cannot be submitted in its current state."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Trigger background processing
         process_kyc_verification.delay(str(application.id))
@@ -179,8 +182,8 @@ class AdminKYCReviewView(APIView):
         send_kyc_status_notification.delay(str(application.user.id), new_status)
 
         # WebSocket notification
-        from apps.kyc.tasks import _notify_kyc_update
-        _notify_kyc_update(str(application.user.id), new_status, str(application.id))
+        from apps.kyc.tasks import notify_kyc_update
+        notify_kyc_update(str(application.user.id), new_status, str(application.id))
 
         return Response(
             {"detail": f"KYC application {action}d successfully.", "status": new_status},

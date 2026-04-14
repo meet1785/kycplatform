@@ -19,11 +19,11 @@ class TwilioSMSService:
                 from_=settings.TWILIO_PHONE_NUMBER,
                 to=to_number,
             )
-            logger.info(f"SMS sent to {to_number}: {msg.sid}")
+            logger.info("SMS sent successfully, SID: %s", msg.sid)
             return True, msg.sid
         except Exception as e:
-            logger.error(f"SMS send failed to {to_number}: {e}")
-            return False, str(e)
+            logger.error("SMS send failed: %s", type(e).__name__)
+            return False, "SMS delivery failed"
 
 
 class TwilioWhatsAppService:
@@ -44,11 +44,11 @@ class TwilioWhatsAppService:
                 from_=whatsapp_from,
                 to=whatsapp_to,
             )
-            logger.info(f"WhatsApp message sent to {to_number}: {msg.sid}")
+            logger.info("WhatsApp message sent successfully, SID: %s", msg.sid)
             return True, msg.sid
         except Exception as e:
-            logger.error(f"WhatsApp send failed to {to_number}: {e}")
-            return False, str(e)
+            logger.error("WhatsApp send failed: %s", type(e).__name__)
+            return False, "WhatsApp delivery failed"
 
 
 class BrevoEmailService:
