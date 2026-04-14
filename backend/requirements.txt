@@ -9,7 +9,7 @@ psycopg2-binary==2.9.9
 django-cors-headers==4.3.1
 django-storages==1.14.2
 boto3==1.33.13
-Pillow==10.3.0
+Pillow==12.2.0
 python-decouple==3.8
 twilio==8.10.0
 sib-api-v3-sdk==7.6.0
