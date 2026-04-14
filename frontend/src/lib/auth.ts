@@ -9,9 +9,11 @@ interface TokenPayload {
   exp: number;
 }
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export const setAuthTokens = (access: string, refresh: string) => {
-  Cookies.set("access_token", access, { expires: 1, secure: true, sameSite: "strict" });
-  Cookies.set("refresh_token", refresh, { expires: 7, secure: true, sameSite: "strict" });
+  Cookies.set("access_token", access, { expires: 1, secure: isProduction, sameSite: "strict" });
+  Cookies.set("refresh_token", refresh, { expires: 7, secure: isProduction, sameSite: "strict" });
 };
 
 export const clearAuthTokens = () => {

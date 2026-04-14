@@ -1,5 +1,6 @@
 import logging
 import random
+import secrets
 import requests
 from django.utils import timezone
 from django.conf import settings
@@ -60,10 +61,18 @@ def process_kyc_with_provider(application):
         return False, None, "error", 0.0
 
 
+_secure_random = random.SystemRandom()
+
+
 def _call_mock_kyc_api(application):
-    """Mock KYC API response for development/testing."""
-    # Simulate processing time and scoring
-    score = round(random.uniform(0.6, 0.99), 2)
+    """
+    Mock KYC API response for development/testing only.
+
+    IMPORTANT: Replace this function with a real KYC provider integration
+    (e.g., Onfido, Jumio, Stripe Identity) before deploying to production.
+    """
+    # Simulate scoring using a cryptographically-safe random source
+    score = round(_secure_random.uniform(0.6, 0.99), 2)
 
     if score >= 0.8:
         return {

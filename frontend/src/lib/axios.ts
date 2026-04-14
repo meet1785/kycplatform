@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const isProduction = process.env.NODE_ENV === "production";
 
 const apiClient = axios.create({
   baseURL: `${API_URL}/api/v1`,
@@ -37,7 +38,7 @@ apiClient.interceptors.response.use(
         });
 
         const { access } = response.data;
-        Cookies.set("access_token", access, { expires: 1, secure: true, sameSite: "strict" });
+        Cookies.set("access_token", access, { expires: 1, secure: isProduction, sameSite: "strict" });
         originalRequest.headers.Authorization = `Bearer ${access}`;
         return apiClient(originalRequest);
       } catch {

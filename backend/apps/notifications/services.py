@@ -77,11 +77,11 @@ class BrevoEmailService:
             )
 
             result = api_instance.send_transac_email(send_smtp_email)
-            logger.info(f"Email sent to {to_email}: {result.message_id}")
+            logger.info("Email sent successfully, message_id: %s", result.message_id)
             return True, result.message_id
         except Exception as e:
-            logger.error(f"Email send failed to {to_email}: {e}")
-            return False, str(e)
+            logger.error("Email send failed: %s", type(e).__name__)
+            return False, "Email delivery failed"
 
 
 class NotificationService:
