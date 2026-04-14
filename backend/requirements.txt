@@ -1,4 +1,4 @@
-Django==4.2.9
+Django==4.2.30
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.1
 django-channels==4.0.0
@@ -9,11 +9,11 @@ psycopg2-binary==2.9.9
 django-cors-headers==4.3.1
 django-storages==1.14.2
 boto3==1.33.13
-Pillow==10.1.0
+Pillow==10.3.0
 python-decouple==3.8
 twilio==8.10.0
 sib-api-v3-sdk==7.6.0
-gunicorn==21.2.0
+gunicorn==22.0.0
 whitenoise==6.6.0
 drf-spectacular==0.27.0
 django-filter==23.4
